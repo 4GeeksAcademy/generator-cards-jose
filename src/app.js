@@ -5,12 +5,8 @@ import "./style.css";
 import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
 
-
-
-window.onload = function() {
-
-  
-  const values = [
+function generateCard () {
+      const values = [
     "2", "3", "4", "5", "6", "7", "8", "9", "10",
     "J", "Q", "K", "A"
   ];
@@ -37,8 +33,6 @@ window.onload = function() {
     suitClass = "club";
   }
 
-
-  
   document.getElementById("value").innerText = values[randomValue];
 
  
@@ -47,5 +41,45 @@ window.onload = function() {
 
   
   const card = document.getElementById("card");
+  card.className = "card";
   card.classList.add(suitClass);
+
+
+}
+
+window.onload = function() {
+
+  generateCard();
+
+  let timeLeft = 10;
+
+setInterval(() => {
+
+  timeLeft = timeLeft -1 ;
+
+  document.getElementById("countdown").innerText = timeLeft;
+
+  if (timeLeft === 0) {
+    generateCard();
+    timeLeft = 10; 
+  }
+
+  }, 1000);
+
+
+  document.getElementById("change-size").addEventListener("click", function() {
+
+  const width = document.getElementById("width-input").value;
+  const height = document.getElementById("height-input").value;
+
+  const card = document.getElementById("card");
+
+  card.style.width = width + "px";
+  card.style.height = height + "px";
+});
+
+  
+
+  document.getElementById("new-card").addEventListener("click", generateCard);
+  
 };
